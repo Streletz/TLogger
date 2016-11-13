@@ -1,7 +1,7 @@
 unit Logger;
 {***********************
 TLogger
-v. 1.0, 2016, Стрелец Streletz
+v. 1.0, 2016, РЎС‚СЂРµР»РµС† Streletz
 ***********************
 Delphi component to save the records in the log file.
 
@@ -65,7 +65,7 @@ var
   FileName, Path, Rec: string;
   LogFile: TextFile;
 begin
-  // Проверяем на заполнение поля с путём к файлу журнала
+  // РџСЂРѕРІРµСЂСЏРµРј РЅР° Р·Р°РїРѕР»РЅРµРЅРёРµ РїРѕР»СЏ СЃ РїСѓС‚С‘Рј Рє С„Р°Р№Р»Сѓ Р¶СѓСЂРЅР°Р»Р°
   if fFilePath <> '' then
     FileName := fFilePath
   else
@@ -74,12 +74,12 @@ begin
     FileName := Path + '\logfile.log';
   end;
   AssignFile(LogFile, FileName);
-  // Проверяем существование файла журнала
+  // РџСЂРѕРІРµСЂСЏРµРј СЃСѓС‰РµСЃС‚РІРѕРІР°РЅРёРµ С„Р°Р№Р»Р° Р¶СѓСЂРЅР°Р»Р°
   if not FileExists(FileName) then
     Rewrite(LogFile)
   else
     Append(LogFile);
-  // Формируем запись и сохраняем в файл журнала
+  // Р¤РѕСЂРјРёСЂСѓРµРј Р·Р°РїРёСЃСЊ Рё СЃРѕС…СЂР°РЅСЏРµРј РІ С„Р°Р№Р» Р¶СѓСЂРЅР°Р»Р°
   Rec := Format('%s %s', [DateTimeToStr(Now), LogRec]);
   WriteLn(LogFile, Rec);
   CloseFile(LogFile);
@@ -87,12 +87,12 @@ end;
 
 procedure TLogger.WriteLog(LogRec: string);
 begin
-  // Событие "Перед сохранением"
+  // РЎРѕР±С‹С‚РёРµ "РџРµСЂРµРґ СЃРѕС…СЂР°РЅРµРЅРёРµРј"
   if Assigned(fOnBeforeWriting) then
     fOnBeforeWriting(Self);
-  // Сохранение строки с текстом записи в файл
+  // РЎРѕС…СЂР°РЅРµРЅРёРµ СЃС‚СЂРѕРєРё СЃ С‚РµРєСЃС‚РѕРј Р·Р°РїРёСЃРё РІ С„Р°Р№Р»
   WriteInFile(LogRec);
-  // Событие "После сохранения"
+  // РЎРѕР±С‹С‚РёРµ "РџРѕСЃР»Рµ СЃРѕС…СЂР°РЅРµРЅРёСЏ"
   if Assigned(fOnAfterWriting) then
     fOnAfterWriting(Self);
 end;
